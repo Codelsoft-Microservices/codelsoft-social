@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package social;
+
+service SocialInteractions {
+  rpc LikeVideo(LikeVideoRequest) returns (InteractionResponse);
+  rpc CommentVideo(CommentVideoRequest) returns (InteractionResponse);
+  rpc GetVideoLikesAndCommentsRequest(GetVideoLikesAndCommentsRequest) returns (GetVideoInteractionsResponse);
+  rpc SocialCheck (Empty) returns (InteractionResponse);
+}
+
+
+message LikeVideoRequest {
+    string message = 1;
+    string videoUUid = 2;
+}
+
+message CommentVideoRequest {
+    string message = 1;
+    string videoUuid = 2;
+    string comment = 3;
+}
+
+message GetVideoLikesAndCommentsRequest {
+    string message = 1;
+    string videoUuid = 2;
+}
+
+message InteractionResponse {
+    string message = 1;
+}
+
+message Comments{
+    string userUuid = 1;
+    string comment = 2;
+}
+
+message GetVideoInteractionsResponse {
+    string message = 1;
+    int64 likes = 2;
+    repeated Comments comments = 3;
+}
+
+message Empty {}
