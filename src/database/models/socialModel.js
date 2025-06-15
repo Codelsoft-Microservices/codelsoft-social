@@ -1,7 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Schema, model } from 'mongoose';
 
-const socialSchema = new Schema({
+// Schema for comments
+const commentSchema = new Schema({
     uuid: {
         type: String,
         immutable: true,
@@ -19,7 +20,26 @@ const socialSchema = new Schema({
     comment: {
         type: String,
         required: true,
-    }
-}, { collection: 'Social' });
+    },
+}, { collection: 'Comments' });
 
-export const Social = model('Social', socialSchema);
+// Schema for likes
+const likeSchema = new Schema({
+    uuid: {
+        type: String,
+        immutable: true,
+        default: () => uuidv4(),
+        required: true,
+    },
+    videoUuid: {
+        type: String,
+        required: true,
+    },
+    userUuid: {
+        type: String,
+        required: true,
+    },
+}, { collection: 'Likes' });
+
+export const Comment = model('Comment', commentSchema);
+export const Like = model('Like', likeSchema);

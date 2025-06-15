@@ -4,6 +4,7 @@ import { loadProto } from "./src/utils/loadProto.js";
 import socialService from "./src/services/socialService.js";
 import { connectMongoose } from "./src/database/connect.js";
 import { connectToRabbitMQ } from "./src/queue/config/connection.js";
+import initializeQueueConsumers from "./src/queue/index.js";
 
 config({ path: "./.env" });
 
@@ -25,6 +26,15 @@ await connectToRabbitMQ()
     })
     .catch((error) => {
         console.error("Error al conectar a RabbitMQ:", error.message);
+        process.exit(1);
+    });
+
+initializeQueueConsumers()
+    .then(() => {
+        console.log("✓ Consumidores de RabbitMQ inicializados");
+    })
+    .catch((error) => {
+        console.error("Error al inicializar los consumidores de RabbitMQ:", error.message);
         process.exit(1);
     });
 
