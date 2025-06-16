@@ -9,7 +9,7 @@ Este repositorio contiene el codigo fuente para el servicio de interacciones soc
 
 1. **Clonar el repositorio**
 ```bash
-https://github.com/Codelsoft-Microservices/codelsoft-social.git
+git clone https://github.com/Codelsoft-Microservices/codelsoft-social.git
 ```
 
 2. **Ingresar al directorio del proyecto**
