@@ -1,5 +1,5 @@
-import { generateFakeLikes } from "../fakers/likesFaker";
-import { Likes } from "../models/likesModel.js";
+import { generateFakeLikes } from "../fakers/likesFaker.js";
+import { Like } from "../models/socialModel.js";
 import { connectMongoose } from "../connect.js";
 
 await connectMongoose();
@@ -11,7 +11,7 @@ const seedLikes = async (numLikes) => {
     }
     
     try {
-        await Likes.insertMany(likes);
+        await Like.insertMany(likes);
         console.log(`✓ ${numLikes} likes generados exitosamente`);
     } catch (error) {
         console.error("Error al generar los likes:", error.message);

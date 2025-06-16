@@ -1,5 +1,5 @@
-import { seedComments } from "./commentsSeeder";
-import { seedLikes } from "./likesSeeder";
+import { seedComments } from "./commentsSeeder.js";
+import { seedLikes } from "./likesSeeder.js";
 
 const mainSeedingFunction = async () => {
     console.log("Iniciando el proceso de seeding de comentarios...");
@@ -11,7 +11,7 @@ const mainSeedingFunction = async () => {
     } catch (error) {
         console.error("Error durante el seeding de likes:", error.message);
     }
-    const numComments = 100; // Cambia este número según tus necesidades
+    const numComments = 50; // Cambia este número según tus necesidades
     try {
         await seedComments(numComments);
         console.log("Seeding de comentarios completado exitosamente.");

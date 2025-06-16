@@ -1,5 +1,5 @@
-import { generateFakeComments } from "../fakers/commentsFaker";
-import { Comments } from "../models/commentsModel.js";
+import { generateFakeComments } from "../fakers/commentsFaker.js";
+import { Comment } from "../models/socialModel.js";
 import { connectMongoose } from "../connect.js";
 
 await connectMongoose()
@@ -11,7 +11,7 @@ const seedComments = async (numComments) => {
     }
 
     try {
-        await Comments.insertMany(comments);
+        await Comment.insertMany(comments);
         console.log(`✓ ${numComments} comentarios generados exitosamente`);
     } catch (error) {
         console.error("Error al generar los comentarios:", error.message);
