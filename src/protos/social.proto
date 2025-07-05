@@ -3,10 +3,14 @@ syntax = "proto3";
 package social;
 
 service SocialInteractions {
-  rpc LikeVideo(LikeVideoRequest) returns (InteractionResponse);
-  rpc CommentVideo(CommentVideoRequest) returns (InteractionResponse);
-  rpc GetVideoLikesAndCommentsRequest(GetVideoLikesAndCommentsRequest) returns (GetVideoInteractionsResponse);
-  rpc SocialCheck (Empty) returns (InteractionResponse);
+  rpc LikeVideo(Empty) returns (StatusResponse);
+  rpc CommentVideo(Empty) returns (StatusResponse);
+  rpc GetVideoLikesAndCommentsRequest(Empty) returns (StatusResponse);
+  rpc SocialCheck (Empty) returns (StatusResponse);
+}
+
+message StatusResponse {
+  string status = 1;
 }
 
 

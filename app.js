@@ -6,37 +6,48 @@ import { connectMongoose } from "./src/database/connect.js";
 import { connectToRabbitMQ } from "./src/queue/config/connection.js";
 import initializeQueueConsumers from "./src/queue/index.js";
 
+const environments = {
+  development: "Desarrollo",
+  production: "Producción",
+};
+
+process.on("uncaughtException", (err) => {
+  console.log("UNCAUGHT EXCEPTION! Apagando el servidor...");
+  console.log(err.name, err.message);
+  process.exit(1);
+});
+
 config({ path: "./.env" });
 
 const server = new Server();
 
-await connectMongoose()
-    .then(() => {
-        console.log("✓ Conexión a base de datos exitosa");
-    })
-    .catch((error) => {
-        console.error("Error al conectar a la base de datos:", error.message);
-        process.exit(1);
-    });
+// await connectMongoose()
+//     .then(() => {
+//         console.log("✓ Conexión a base de datos exitosa");
+//     })
+//     .catch((error) => {
+//         console.error("Error al conectar a la base de datos:", error.message);
+//         process.exit(1);
+//     });
 
-// conectar rabbitmq
-await connectToRabbitMQ()
-    .then(() => {
-        console.log("✓ Conexión a RabbitMQ exitosa");
-    })
-    .catch((error) => {
-        console.error("Error al conectar a RabbitMQ:", error.message);
-        process.exit(1);
-    });
+//
+// await connectToRabbitMQ()
+//     .then(() => {
+//         console.log("✓ Conexión a RabbitMQ exitosa");
+//     })
+//     .catch((error) => {
+//         console.error("Error al conectar a RabbitMQ:", error.message);
+//         process.exit(1);
+//     });
 
-initializeQueueConsumers()
-    .then(() => {
-        console.log("✓ Consumidores de RabbitMQ inicializados");
-    })
-    .catch((error) => {
-        console.error("Error al inicializar los consumidores de RabbitMQ:", error.message);
-        process.exit(1);
-    });
+// initializeQueueConsumers()
+//     .then(() => {
+//         console.log("✓ Consumidores de RabbitMQ inicializados");
+//     })
+//     .catch((error) => {
+//         console.error("Error al inicializar los consumidores de RabbitMQ:", error.message);
+//         process.exit(1);
+//     });
 
 const socialProto = loadProto("social");
 server.addService(socialProto.SocialInteractions.service, socialService);
